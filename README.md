@@ -2,6 +2,12 @@
 
 A hands-on Senior DevOps portfolio project inspired by the Xelix role. Independently built; not affiliated with Xelix. Uses synthetic invoices only.
 
+## Try the online demo
+
+**[Open the live invoice dashboard](https://mathvicky.github.io/ap-controls-platform/)** — no setup required.
+
+The public recruiter demo runs the rules in your browser and stores vendor/reference keys in localStorage. It does not connect to the Python API or AWS database. Use synthetic data only. Submit an invoice twice to see the duplicate flag; **Reset demo data** clears the browser's duplicate history. The `gh-pages` branch contains the hosted demo.
+
 ## Run in 60 seconds
 
 Requires Python 3.13. From this directory:
