@@ -11,7 +11,9 @@ python -m unittest discover -s tests -v
 python -m app.server
 ```
 
-In another PowerShell window:
+Open **http://localhost:8080/** in your browser for the invoice dashboard. Enter a vendor, reference and amount, or click **Load example**. Submit the same invoice again to see the duplicate flag. The dashboard lists the latest 50 successful assessments from this page session; duplicate checks persist in the database across page reloads.
+
+In another PowerShell window, you can also use the API:
 
 ```powershell
 Invoke-RestMethod http://localhost:8080/ready

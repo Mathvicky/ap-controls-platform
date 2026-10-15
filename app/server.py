@@ -3,6 +3,7 @@ import json
 import logging
 import os
 import sqlite3
+from pathlib import Path
 from decimal import Decimal, InvalidOperation
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from threading import Lock
@@ -66,6 +67,15 @@ class Handler(BaseHTTPRequestHandler):
         self.wfile.write(raw)
 
     def do_GET(self):
+        if self.path == "/":
+            raw = Path(__file__).with_name("dashboard.html").read_bytes()
+            self.send_response(200)
+            self.send_header("Content-Type", "text/html; charset=utf-8")
+            self.send_header("Content-Length", str(len(raw)))
+            self.send_header("X-Content-Type-Options", "nosniff")
+            self.end_headers()
+            self.wfile.write(raw)
+            return
         if self.path == "/health":
             return self.respond(200, {"status": "alive"})
         if self.path == "/ready":
