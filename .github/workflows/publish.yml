@@ -1,0 +1,31 @@
+name: Publish image
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: portfolio
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: python -m unittest discover -s tests -v
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_PUBLISH_ROLE_ARN }}
+          aws-region: eu-west-2
+      - id: ecr
+        uses: aws-actions/amazon-ecr-login@v2
+      - name: Build and push immutable commit tag
+        env:
+          REGISTRY: ${{ steps.ecr.outputs.registry }}
+        run: |
+          docker build -t "$REGISTRY/ap-controls:$GITHUB_SHA" .
+          docker push "$REGISTRY/ap-controls:$GITHUB_SHA"
+          aws ecr describe-images --repository-name ap-controls --image-ids imageTag="$GITHUB_SHA" --query 'imageDetails[0].imageDigest' --output text

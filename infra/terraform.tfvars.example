@@ -1,0 +1,4 @@
+vpc_id = "vpc-REPLACE"
+private_subnet_ids = ["subnet-REPLACE-A", "subnet-REPLACE-B"]
+image = "ACCOUNT.dkr.ecr.eu-west-2.amazonaws.com/ap-controls@sha256:REPLACE_WITH_64_HEX_CHARACTERS"
+alarm_email = "you@example.com"

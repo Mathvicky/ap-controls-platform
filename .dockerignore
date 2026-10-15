@@ -1,0 +1,5 @@
+.git
+.terraform
+*.db
+__pycache__
+tests
